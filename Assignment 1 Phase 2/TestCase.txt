@@ -1,0 +1,175 @@
+1. Input:
+	BusSystem* bs = new BusSystem();
+	cout << bs->query("SQ 500") << endl;
+	cout << bs->query("INS 50 50D1-23342 1234 5678") << endl;
+	cout << bs->query("INS 50 50D1-23343 0 4000 5000") << endl;
+	cout << bs->query("INS 50 50D1-23342 1 1200 1222") << endl;
+	cout << bs->query("CS 50 1210") << endl;
+Output:
+	1
+	1
+	2
+	3
+	1
+---------------------------------------------------------------------
+2. Input:
+	BusSystem* bs = new BusSystem();
+	cout << bs->query("SQ 500") << endl;
+	cout << bs->query("INS 50 50D1-23342 1234 5678") << endl;
+	cout << bs->query("INS 50 50D1-23343 0 4000 5000") << endl;
+	cout << bs->query("INS 50 50D1-23342 1 1200 1222") << endl;
+	cout << bs->query("CS 50 4500 0") << endl;
+Output:
+	1
+	1
+	2
+	3
+	2
+---------------------------------------------------------------------
+3. Input:
+	BusSystem* bs = new BusSystem();
+	cout << bs->query("SQ 500") << endl;
+	cout << bs->query("INS 50 50D1-23342 1234 5678") << endl;
+	cout << bs->query("INS 50 50D1-23343 0 4000 5000") << endl;
+	cout << bs->query("INS 50 50D1-23342 1 1200 1222") << endl;
+	cout << bs->query("CS 50 4500 0") << endl;
+	cout << bs->query("CE 50 6000") << endl;
+Output:
+	1
+	1
+	2
+	3
+	2
+	3
+---------------------------------------------------------------------
+4. Input:
+	BusSystem* bs = new BusSystem();
+	cout << bs->query("SQ 500") << endl;
+	cout << bs->query("INS 50 50D1-23342 1234 5678") << endl;
+	cout << bs->query("INS 50 50D1-23343 0 4000 5000") << endl;
+	cout << bs->query("INS 50 50D1-23342 1 1200 1222") << endl;
+	cout << bs->query("CS 50 4500 0") << endl;
+	cout << bs->query("CE 50 4500") << endl;
+Output:
+	1
+	1
+	2
+	3
+	2
+	1
+---------------------------------------------------------------------
+5. Input:
+	BusSystem* bs = new BusSystem();
+	cout << bs->query("SQ 500") << endl;
+	cout << bs->query("INS 50 50D1-23341 5 10") << endl;
+	cout << bs->query("INS 50 50D1-23342 0 6 15") << endl;
+	cout << bs->query("INS 50 50D1-23343 1 4 9") << endl;
+	cout << bs->query("CS 50 10") << endl;
+	cout << bs->query("CE 50 10") << endl;
+	cout << bs->query("GS 50 7") << endl;
+Output:
+	1
+	1
+	2
+	3
+	2
+	1
+	50D1-23342
+---------------------------------------------------------------------
+6. Input:
+	BusSystem* bs = new BusSystem();
+	cout << bs->query("SQ 500") << endl;
+	cout << bs->query("INS 50 50D1-23341 1 5 10") << endl;
+	cout << bs->query("INS 50 50D1-23342 1 8 9") << endl;
+	cout << bs->query("GS 50 8");
+Output:
+	1
+	1
+	2
+	50D1-23342
+---------------------------------------------------------------------
+7.Input:
+	BusSystem* bs = new BusSystem();
+	cout << bs->query("SQ 500") << endl;
+	cout << bs->query("INS 50 50D1-23341 6 10") << endl;
+	cout << bs->query("INS 50 50D1-23342 5 9") << endl;
+	cout << bs->query("GS 50 8") << endl;
+Output:
+	1
+	1
+	2
+	50D1-23341
+---------------------------------------------------------------------
+8. Input:
+	BusSystem* bs = new BusSystem();
+	cout << bs->query("SQ 500") << endl;
+	cout << bs->query("INS 50 50D1-23341 6 10") << endl;
+	cout << bs->query("INS 50 50D1-23342 5 9") << endl;
+	cout << bs->query("GS 50 4") << endl;
+Output:
+	1
+	1
+	2
+	-1	
+---------------------------------------------------------------------
+9. Input:
+	BusSystem* bs = new BusSystem();
+	cout << bs->query("SQ 500") << endl;
+	cout << bs->query("INS 50 50D1-23341 6 10") << endl;
+	cout << bs->query("INS 50 50D1-23342 5 9") << endl;
+	cout << bs->query("GE 50 6") << endl;
+Output:
+	1
+	1
+	2
+	-1
+---------------------------------------------------------------------
+10. Input:
+	BusSystem* bs = new BusSystem();
+	cout << bs->query("SQ 500") << endl;
+	cout << bs->query("INS 50 50D1-23341 6 10") << endl;
+	cout << bs->query("INS 50 50D1-23342 5 9") << endl;
+	cout << bs->query("GE 50 10") << endl;
+Output:
+	1
+	1
+	2
+	50D1-23342
+---------------------------------------------
+11. Input:
+	BusSystem* bs = new BusSystem();
+	cout << bs->query("SQ 500") << endl;
+	cout << bs->query("INS 50 50D1-23341 6 10") << endl;
+	cout << bs->query("INS 50 50D1-23342 5 10") << endl;
+	cout << bs->query("GE 50 10") << endl;
+Output:
+	1
+	1
+	2
+	-1
+-------------------------------------------------
+12. Input:
+	BusSystem* bs = new BusSystem();
+	cout << bs->query("SQ 500") << endl;
+	cout << bs->query("INS 50 50D1-23341 6 10") << endl;
+	cout << bs->query("INS 50 50D1-23342 5 10") << endl;
+	cout << bs->query("GE 50 11") << endl;
+Output:
+	1
+	1
+	2
+	50D1-23341
+-------------------------------------------------------
+13. Input:
+	BusSystem* bs = new BusSystem();
+	cout << bs->query("SQ 3") << endl;
+	cout << bs->query("INS 50 50D1-23341 1 5 10") << endl;
+	cout << bs->query("INS 50 50D1-23342 1 8 9") << endl;
+	cout << bs->query("INS 50 50D1-23342 1 20 22") << endl;
+	cout << bs->query("INS 50 50D1-23342 1 29 40") << endl;
+Output:
+	1
+	1
+	2
+	3
+	-1
