@@ -115,7 +115,7 @@ public:
     *   first on in history.
     * 
     *   traversedList contain the key of the node that this search function has searched
-    *   on in the right order, including the key of the entry we need.
+    *   on in the right order, excluding the key of the entry we need.
     */
     V search(K key, vector<K>& traversedList) {
         if (!splay->root)
@@ -125,10 +125,8 @@ public:
         traversingList->clear();
         BaseNode* res = nullptr;
 
-        if (getKey(splay->root) == key) {
+        if (getKey(splay->root) == key) 
             res = splay->root;
-            traversedList.push_back(key);
-        }
         else if (count(hist.begin(), hist.end(), key)) {
             res = splay.find(splay->root, key);
             // NOTE: splay exactly once here.
@@ -280,11 +278,11 @@ public:
             if (!root) 
                 return nullptr;
 
-            if (BKUTree::traversingList)
-                BKUTree::traversingList->push_back(getKey(root));
-
             if (getKey(root) == key)    
                 return root;
+
+            if (BKUTree::traversingList)
+                BKUTree::traversingList->push_back(getKey(root));
             
             if (key < getKey(root))
                 return find(root->left, key);
@@ -459,11 +457,11 @@ public:
             if (root == ignored)
                 return nullptr;
 
-            if (BKUTree::traversingList)
-                BKUTree::traversingList->push_back(getKey(root));
-            
             if (getKey(root) == key)
                 return root;
+
+            if (BKUTree::traversingList)
+                BKUTree::traversingList->push_back(getKey(root));
 
             if (key < getKey(root))
                 return find(root->left, key, ignored);
