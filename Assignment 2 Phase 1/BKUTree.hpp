@@ -34,8 +34,8 @@ private:
 public:
     BKUTree(int _maxHistSize = 5) {
         maxHistSize = _maxHistSize;
-        avl = new AVLTree();
-        splay = new SplayTree();
+        avl = new AVLTree(this);
+        splay = new SplayTree(this);
 
         traversingList = nullptr;
     }
@@ -145,7 +145,7 @@ public:
         if (!found)
             throw "Not found";
 
-        if (hist.size() == maxHistSize)
+        if ((int)hist.size() == maxHistSize)
             hist.pop_front();
         hist.push_back(key);
 
@@ -574,7 +574,11 @@ public:
                     return;
                 }
 
-                root->entry = get_inorder_successor(root)->entry;
+                Node* p = get_inorder_successor(root);
+                root->entry = p->entry;
+                root->corr = p->corr;
+                if (root->corr)
+                    root->corr->corr = root;
                 remove(root->left, getKey(root));
 
                 root->update();
@@ -637,5 +641,5 @@ public:
         }
 
         friend class BKUTree;
-    };
+   };
 };

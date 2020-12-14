@@ -102,7 +102,3 @@ public:
         void clear();
     };
 };
-
-int main() {
-
-}
