@@ -8,13 +8,12 @@ using namespace std;
 
 template <class K, class V>
 class BKUTree {
-#pragma region // BKU Tree
 public:
     class AVLTree;
     class SplayTree;
 
     class Entry {
-    protected:
+    public:
         K key;
         V value;
 
@@ -23,14 +22,18 @@ public:
 
 private:
     class BaseNode {
+    protected:
         Entry* entry;
+
+        friend K& BKUTree::getKey(BaseNode*);
+        friend V& BKUTree::getValue(BaseNode*);
     };
 
-    K& getKey(BaseNode* p) {
-        return p->e->key;
+    static K& getKey(BaseNode* p) {
+        return p->entry->key;
     }
-    V& getValue(BaseNode* p) {
-        return p->e->value;
+    static V& getValue(BaseNode* p) {
+        return p->entry->value;
     }
 
 private:
@@ -70,7 +73,7 @@ public:
 
         // TEST: hist overflow.
         // TEST: do not add to hist if not adding to the tree successfully.
-        if (hist.size() == maxHistSize)
+        if ((int)hist.size() == maxHistSize)
             hist.pop_front();
         hist.push_back(key);
     }
@@ -166,7 +169,6 @@ public:
         splay->clear();
     }
 
-#pragma endregion
     class SplayTree {
     public:
         class Node: public BaseNode {
@@ -183,6 +185,13 @@ public:
                 this->corr = nullptr;
             }
 
+            void update() {
+                if (left) 
+                    left->parent = this;
+                if (right)
+                    right->parent = this;
+            }
+
             friend class SplayTree;
             friend class BKUTree;
         };
@@ -191,9 +200,76 @@ public:
         Node* root;
 
     private:
-        // return pointer to the node with the equivalent key. If not found, return nullptr.
-        void splay(Node* node);
-        
+        void rotate_left(Node*& root) {
+            auto p = root->right;
+            root->right = p->left;
+            p->left = root;
+            root = p;
+
+            root->parent = root->left->parent;
+            root->left->update();
+            root->update();
+        }
+
+        void rotate_right(Node*& root) {
+            auto p = root->left;
+            root->left = p->right;
+            p->right = root;
+            root = p;
+
+            root->parent = root->right->parent;
+            root->right->update();
+            root->update();
+        }
+
+        Node*& get_true_node(Node* p) {
+            if (!p->parent)
+                return root;
+            else 
+                if (p == p->parent->left)
+                    return p->parent->left;
+                else
+                    return p->parent->right;
+        }
+
+        void splay(Node*& p) {
+            if (p->parent->parent) {
+
+                if (p->parent == p->parent->parent->left && p == p->parent->left) {
+                    Node*& root = get_true_node(p->parent->parent);
+                    rotate_right(root);
+                    rotate_right(root);
+                    p = root;
+                }
+                else if (p->parent == p->parent->parent->right && p == p->parent->right) {
+                    Node*& root = get_true_node(p->parent->parent);
+                    rotate_left(root);
+                    rotate_left(root);
+                    p = root;
+                }
+                else if (p->parent == p->parent->parent->left && p == p->parent->right) {
+                    rotate_left(get_true_node(p->parent));
+                    Node*& root = get_true_node(p->parent);
+                    rotate_right(root);
+                    p = root;
+                }
+                else if (p->parent == p->parent->parent->right && p == p->parent->left) {
+                    rotate_right(get_true_node(p->parent));
+                    Node*& root = get_true_node(p->parent);
+                    rotate_left(root);
+                    p = root;
+                }
+            }
+            else {
+                Node*& root = get_true_node(p->parent);
+                if (p == root->left)
+                    rotate_right(root);
+                else 
+                    rotate_left(root);
+
+                p = root;
+            }
+        }
         /*
         *   Return the node whose key is equivalent to key(parameter).
         *   If no node found, return nullptr.
@@ -214,6 +290,12 @@ public:
                 return find(root->left, key);
             else    
                 return find(root->right, key);
+        }
+
+        Node* get_right_most(Node* root) {
+            while (root->right)
+                root = root->right;
+            return root;
         }
         
         /*
@@ -236,11 +318,9 @@ public:
             else
                 p = add(root->right, entry, root);
 
-            // Splay here if necessary.
+            root->update();
             return p;
         }
-
-        void remove(Node*& root, K key);
 
         void clear(Node*& root) {
             if (!root)
@@ -260,7 +340,6 @@ public:
         }
 
     public:
-    #pragma region // Splay Tree public method
         SplayTree(): root(nullptr) {};
         ~SplayTree() { this->clear(); };
         
@@ -268,27 +347,62 @@ public:
             return add(new Entry(key, value));
         }
         Node* add(Entry* entry) {
-            return add(root, entry);
+            auto p = add(root, entry);
+            while (p->parent)
+                splay(p);
+
+            return p;
         }
         void remove(K key) {
-            remove(root, key);
+            Node* p = find(key);
+            if (!p)
+                throw "Not found";
+
+            while (p->parent)
+                splay(p);
+
+            Node* left = p->left;
+            Node* right = p->right;
+            if (left)
+                left->parent = nullptr;
+            if (right)
+                right->parent = nullptr;
+            delete p;
+
+            if (!left)
+                root = right;
+            else if (!right)
+                root = left;
+            else {
+                root = left;
+                left = get_right_most(left);
+                while (left->parent)
+                    splay(left);
+
+                left->right = right;
+                right->parent = left;
+                root = left;
+            }
         }
 
         void clear() {
             clear(root);
+            root = nullptr;
         }
 
         V search(K key) {
-            auto node = find(root, key);
-            if (!node)
+            Node* p = find(root, key);
+            if (!p)
                 throw "Not found";
-            return getValue(node);
+
+            while (p->parent)
+                splay(p);
+            return getValue(p);
         }
 
         void traverseNLR(void (*func)(K key, V value)) {
             traverseNLR(root, func);
         }
-    #pragma endregion
     };
 
     class AVLTree {
@@ -296,15 +410,31 @@ public:
         class Node : public BaseNode {
             Node* left;
             Node* right;
-            int balance;
+            int h;
             typename SplayTree::Node* corr;
 
             Node(Entry* entry = nullptr, Node* left = nullptr, Node* right = nullptr) {
                 this->entry = entry;
                 this->left = left;
                 this->right = right;
-                this->balance = 0;
+                this->h = 1;
                 this->corr = nullptr;
+            }
+
+            int left_height() {
+                return left ? left->h : 0;
+            }
+
+            int right_height() {
+                return right ? right->h : 0;
+            }
+
+            void update() {
+                h = max(left_height(), right_height()) + 1;
+            }
+
+            int bf() {
+                return right_height() - left_height();
             }
 
             friend class AVLTree;
@@ -323,7 +453,7 @@ public:
         *   If  BKU::traversingList is not null, record the finding process 
         *   to BKU::traversingList.
         */
-        Node* find(Node* root, K key, Node* ignored = nullptr) {
+        Node* find(Node* root, const K& key, Node* ignored = nullptr) {
             if (!root)
                 return nullptr;
             if (root == ignored)
@@ -341,8 +471,106 @@ public:
                 return find(root->right, key, ignored);
         }
 
-        Node* add(Node*& root, Entry* entry);
-        void remove(Node*& root, K key);
+        void rotate_left(Node*& root) {
+            auto p = root->right;
+            root->right = p->left;
+            p->left = root;
+            root = p;
+
+            root->left->update();
+            root->update();
+        }
+
+        void rotate_right(Node*& root) {
+            auto p = root->left;
+            root->left = p->right;
+            p->right = root;
+            root = p;
+
+            root->right->update();
+            root->update();
+        }
+
+        void balance(Node*& root) {
+            if (abs(root->bf()) < 2)
+                return;
+
+            if (root->bf() < -1) {
+                if (root->left->bf() == 1) 
+                    rotate_left(root->left);
+                rotate_right(root);
+            }
+            else {
+                if (root->right->bf() == -1) 
+                    rotate_right(root->right);
+                rotate_left(root);
+            }
+        }
+
+        Node* add(Node*& root, Entry* entry) {
+            if (!root)  {
+                root = new Node(entry);
+                return root;
+            }
+
+            if (entry->key == getKey(root))
+                throw "Duplicate key";
+
+            Node* p = nullptr;
+            if (entry->key < getKey(root))
+                p = add(root->left, entry);
+            else
+                p = add(root->right, entry);
+
+            root->update();
+            balance(root);
+
+            return p;
+        }
+
+        Node* get_inorder_successor(Node* root) {
+            root = root->left;
+            while (root->right)
+                root = root->right;
+            return root;
+        }
+
+        void remove(Node*& root, const K& key) {
+            if (key == getKey(root)) {
+                if (!root->left && !root->right) {
+                    delete root;
+                    root = nullptr;
+                    return;
+                }
+
+                if (root->left && !root->right) {
+                    auto p = root;
+                    root = p->left;
+                    delete p;
+                    return;
+                }
+
+                if (!root->left && root->right) {
+                    auto p = root;
+                    root = p->right;
+                    delete p;
+                    return;
+                }
+
+                root->entry = get_inorder_successor(root)->entry;
+                remove(root->left, getKey(root));
+
+                root->update();
+                balance(root);
+
+                return;
+            }
+
+            if (key < getKey(root))
+                remove(root->left, key);
+            else
+                remove(root->right, key);
+        }
 
         void clear(Node*& root) {
             if (!root)
@@ -362,7 +590,6 @@ public:
         }
 
     public:
-    #pragma region // AVL Tree public method
         AVLTree(): root(nullptr) {};
         ~AVLTree() { this->clear(); };
 
@@ -378,6 +605,7 @@ public:
 
         void clear() {
             clear(root);
+            root = nullptr;
         }
 
         V search(K key) {
@@ -390,6 +618,5 @@ public:
         void traverseNLR(void (*func)(K key, V value)) {
             traverseNLR(root, func);
         }
-    #pragma endregion
     };
 };
