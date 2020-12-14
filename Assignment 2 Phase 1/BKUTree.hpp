@@ -79,9 +79,12 @@ public:
     }
 
     /*
-    *   remove the entry whose key is equivalent to key (parameter).
-    *   if remove successfully and the key's in the history, remove the key from history
-    *   then add the key of the root of splay tree if the root exists.
+    *   Remove the entry whose key is equivalent to key (parameter).
+    *   If remove successfully and the history contains key, delete all 
+    *   occurence of key in history.
+    *   If remove successfully and Splay tree is not empty, add the key 
+    *   of the root of Splay tree to history, remove the oldest element
+    *   of history if needed to make room.
     */
     void remove(K key) {
         avl->remove(key);
