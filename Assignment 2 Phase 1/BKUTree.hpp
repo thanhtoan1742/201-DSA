@@ -87,13 +87,17 @@ public:
         avl->remove(key);
         splay->remove(key);
 
-        auto it = find(hist.begin(), hist.end(), key);
-        if (it != hist.end()) {
-            hist.erase(it);
-            // TEST: when splay->root = nullptr
-            // TEST: do not alter hist if not removing anything.
-            if (splay->root)
-                hist.push_back(splay->root->key);
+        auto it = hist.begin();
+        while (it != hist.end()) {
+            if (*it == key) 
+                it = hist.erase(it);
+            else 
+                ++it;
+        }
+        if (splay->root) {
+            if ((int) hist.size() == maxHistSize)
+                hist.pop_front();
+            hist.push_back(getKey(splay->root));
         }
     }
 
