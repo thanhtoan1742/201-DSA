@@ -6,6 +6,9 @@
 
 using namespace std;
 
+#define getKey(p) ((p)->entry->key)
+#define getValue(p) ((p)->entry->value)
+
 template <class K, class V>
 class BKUTree {
 public:
@@ -19,22 +22,6 @@ public:
 
         Entry(K key, V value) : key(key), value(value) {}
     };
-
-private:
-    class BaseNode {
-    protected:
-        Entry* entry;
-
-        friend K& BKUTree::getKey(BaseNode*);
-        friend V& BKUTree::getValue(BaseNode*);
-    };
-
-    static K& getKey(BaseNode* p) {
-        return p->entry->key;
-    }
-    static V& getValue(BaseNode* p) {
-        return p->entry->value;
-    }
 
 private:
     AVLTree* avl;
@@ -115,41 +102,47 @@ public:
     *       Search on the AVL subtree whose root is the node linked with the root of 
     *       Splay tree. If found return the value of the entry.
     *       If not found in the above search, search on the AVL tree from its root, ignore the subtree
-    *       whose root is linked with the root of Splay tree. If found, splay the node contains the
-    *       entry we need on the Splay tree once.
+    *       whose root is linked with the root of Splay tree.
+    *       Before returning the value, splay the node contains the key once.
     * 
     *   If searching found, add the key to history. If the history is full, remove the 
     *   first on in history.
     * 
     *   traversedList contain the key of the node that this search function has searched
     *   on in the right order, excluding the key of the entry we need.
+    *   Append to traversedList, do not reset it.
     */
     V search(K key, vector<K>& traversedList) {
         if (!splay->root)
             throw "Not found";
 
         traversingList = &traversedList;
-        traversingList->clear();
-        BaseNode* res = nullptr;
+        bool found = 0;
+        V res;
 
-        if (getKey(splay->root) == key) 
-            res = splay->root;
+        if (getKey(splay->root) == key) {
+            found = 1;
+            res = getValue(splay->root);
+        }
         else if (count(hist.begin(), hist.end(), key)) {
-            res = splay.find(splay->root, key);
-            // NOTE: splay exactly once here.
-            splay->splay(res);
+            found = 1;
+            auto p = splay->find(splay->root, key);
+            res = getValue(p);
+            splay->splay(p);
         }
         else {
-            res = avl.find(splay->root->corr, key);
-            if (!res) {
-                res = avl.find(avl->root, key, splay->root->corr);
-                // TODO: if res: splay exactly once at res->corr.
-                if (res) 
-                    splay->splay((typename AVLTree::Node*)(res)->corr);
+            auto p = avl->find(splay->root->corr, key);
+            if (!p) 
+                p = avl->find(avl->root, key, splay->root->corr);
+            if (p) {
+                found = 1;
+                res = getValue(p);
+                splay->splay(p->corr);
             }
+
         }
 
-        if (!res)
+        if (!found)
             throw "Not found";
 
         if (hist.size() == maxHistSize)
@@ -157,7 +150,7 @@ public:
         hist.push_back(key);
 
         traversingList = nullptr;
-        return getValue(res);
+        return res;
     }
 
     void traverseNLROnAVL(void (*func)(K key, V value)) {
@@ -176,7 +169,8 @@ public:
 
     class SplayTree {
     public:
-        class Node: public BaseNode {
+        class Node {
+            Entry* entry;
             Node* parent;
             Node* left;
             Node* right;
@@ -205,6 +199,14 @@ public:
         Node* root;
 
     private:
+        BKUTree* bku;
+
+    private:
+        SplayTree(BKUTree* bku) {
+            this->root = nullptr;
+            this->bku = bku;
+        }
+
         void rotate_left(Node*& root) {
             auto p = root->right;
             root->right = p->left;
@@ -288,8 +290,8 @@ public:
             if (getKey(root) == key)    
                 return root;
 
-            if (BKUTree::traversingList)
-                BKUTree::traversingList->push_back(getKey(root));
+            if (bku && bku->traversingList)
+                bku->traversingList->push_back(getKey(root));
             
             if (key < getKey(root))
                 return find(root->left, key);
@@ -359,7 +361,7 @@ public:
             return p;
         }
         void remove(K key) {
-            Node* p = find(key);
+            Node* p = find(root, key);
             if (!p)
                 throw "Not found";
 
@@ -408,11 +410,14 @@ public:
         void traverseNLR(void (*func)(K key, V value)) {
             traverseNLR(root, func);
         }
+
+        friend class BKUTree;
     };
 
     class AVLTree {
     public:
-        class Node : public BaseNode {
+        class Node {
+            Entry* entry;
             Node* left;
             Node* right;
             int h;
@@ -450,6 +455,13 @@ public:
         Node* root;
 
     private:
+        BKUTree* bku;
+
+    private:
+        AVLTree(BKUTree* bku) {
+            this->bku = bku;
+            this->root = nullptr;
+        }
 
         /*
         *   Return the node whose key is equivalent to key(parameter).
@@ -467,8 +479,8 @@ public:
             if (getKey(root) == key)
                 return root;
 
-            if (BKUTree::traversingList)
-                BKUTree::traversingList->push_back(getKey(root));
+            if (bku && bku->traversingList)
+                bku->traversingList->push_back(getKey(root));
 
             if (key < getKey(root))
                 return find(root->left, key, ignored);
@@ -623,5 +635,7 @@ public:
         void traverseNLR(void (*func)(K key, V value)) {
             traverseNLR(root, func);
         }
+
+        friend class BKUTree;
     };
 };
