@@ -565,20 +565,14 @@ public:
                 throw "Not found";
 
             if (key == getKey(root)) {
-                if (!root->left && !root->right) {
-                    delete root;
-                    root = nullptr;
-                    return;
-                }
-
-                if (root->left && !root->right) {
+                if (!root->right) {
                     auto p = root;
                     root = p->left;
                     delete p;
                     return;
-                }
+                } 
 
-                if (!root->left && root->right) {
+                if (!root->left) {
                     auto p = root;
                     root = p->right;
                     delete p;
@@ -594,7 +588,6 @@ public:
 
                 root->update();
                 balance(root);
-
                 return;
             }
 
@@ -602,6 +595,8 @@ public:
                 remove(root->left, key);
             else
                 remove(root->right, key);
+            root->update();
+            balance(root);
         }
 
         void clear(Node*& root) {

@@ -1,6 +1,4 @@
 #include "BKUTree.hpp"
-// #include "PThinh.cpp"
-// #include "Trung.cpp"
 const char* ansFile = "trung.txt";
 const char* outFile = "toan.txt";
 
@@ -11,6 +9,7 @@ const char* outFile = "toan.txt";
 #include <cstdlib>
 #include <unordered_map>
 #include <fstream>
+#include <string>
 
 using namespace std;
 
@@ -225,14 +224,44 @@ void random_test_avl() {
 }
 
 void avl_remove_test() {
+    print_header("AVL REMOVE TEST");
     BKUTree<int, string>::AVLTree* avl = new BKUTree<int, string>::AVLTree();
-    
 
+    avl->add(10, "1st");
+    avl->add(12, "2nd");
+    avl->add(8, "3rd");
+    avl->add(73, "4th");
+    avl->add(42, "5th");
+    avl->add(3, "6th");
+    avl->add(39, "7th");
+    avl->add(27, "8th");
+    print_avl<int, string>(avl);
 
-    
+    avl->remove(8);
+    print_avl<int, string>(avl);
+    avl->remove(42);
+    print_avl<int, string>(avl);
+    avl->remove(27);
+    print_avl<int, string>(avl);
+
+    try {
+        avl->remove(100);
+        print_avl<int, string>(avl);
+    }
+    catch (const char* e) {
+        cout << e << '\n';
+    }
+
+    try {
+        avl->remove(42);
+        print_avl<int, string>(avl);
+    }
+    catch (const char* e) {
+        cout << e << '\n';
+    }
+
     delete avl;
 }
-
 
 void run_test() {
     freopen(outFile, "w", stdout);
@@ -248,7 +277,7 @@ void run_test() {
     // splay_search_test();
 
     // avl_add_test();
-    // avl_remove_test();
+    avl_remove_test();
     // avl_search_test();
 
     random_test_bku();
@@ -308,11 +337,9 @@ void compare() {
         cerr << ansFile << " is shorter than " << outFile;
         return;
     }
-
-    cout << "AC\n";
 }
 
 int main() {
     run_test();
-    compare();
+    // compare();
 }
