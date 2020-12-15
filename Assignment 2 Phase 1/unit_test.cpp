@@ -1,4 +1,8 @@
 #include "BKUTree.hpp"
+// #include "PThinh.cpp"
+// #include "Trung.cpp"
+const char* ansFile = "trung.txt";
+const char* outFile = "toan.txt";
 
 #include <iostream>
 #include <sstream>
@@ -6,6 +10,7 @@
 #include <assert.h>
 #include <cstdlib>
 #include <unordered_map>
+#include <fstream>
 
 using namespace std;
 
@@ -219,8 +224,18 @@ void random_test_avl() {
     delete avl;
 }
 
-int main() {
-    freopen("ans.txt", "w", stdout);
+void avl_remove_test() {
+    BKUTree<int, string>::AVLTree* avl = new BKUTree<int, string>::AVLTree();
+    
+
+
+    
+    delete avl;
+}
+
+
+void run_test() {
+    freopen(outFile, "w", stdout);
 
     example_test();
 
@@ -239,4 +254,65 @@ int main() {
     random_test_bku();
     random_test_splay();
     random_test_avl();
+}
+
+bool is_white_space(char c) {
+    static char ws[] = {' ', '\n', '\r'};
+    static int n = sizeof(ws);
+
+    for (int i = 0; i < n; ++i)
+        if (ws[i] == c)
+            return 1;
+    return 0;
+}
+
+void trim(string& s) {
+    if (s.empty())
+        return;
+
+    while (is_white_space(s.back())) 
+        s.pop_back();
+
+    while (s.size() > 1 && is_white_space(s[0]))
+        s = s.substr(1);
+}
+
+void compare() {
+    ifstream ansf(ansFile);
+    ifstream outf(outFile);
+
+    int i = 1;
+    while (!ansf.eof()) {
+        string ans;
+        getline(ansf, ans);
+        trim(ans);
+
+        if (outf.eof()) {
+            cerr << outFile << " is shorter than " << ansFile;
+            return;
+        }
+
+        string out;
+        getline(outf, out);
+        trim(out);
+
+        if (out != ans) {
+            cerr << "Different at line " << i << ":\n";
+            cerr << ans << "\n" << out << '\n';
+            return;
+        }
+        ++i;
+    }
+
+    if (!outf.eof()) {
+        cerr << ansFile << " is shorter than " << outFile;
+        return;
+    }
+
+    cout << "AC\n";
+}
+
+int main() {
+    run_test();
+    compare();
 }

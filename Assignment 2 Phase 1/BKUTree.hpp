@@ -200,6 +200,7 @@ public:
 
     private:
         BKUTree* bku;
+        list<Entry*> garbageCollector;
 
     private:
         SplayTree(BKUTree* bku) {
@@ -351,7 +352,10 @@ public:
         ~SplayTree() { this->clear(); };
         
         Node* add(K key, V value) {
-            return add(new Entry(key, value));
+            Entry* p = new Entry(key, value);
+            garbageCollector.push_back(p);
+
+            return add(p);
         }
         Node* add(Entry* entry) {
             auto p = add(root, entry);
@@ -395,6 +399,9 @@ public:
         void clear() {
             clear(root);
             root = nullptr;
+            for (auto p: garbageCollector)
+                delete p;
+            garbageCollector.clear();
         }
 
         V search(K key) {
@@ -456,6 +463,7 @@ public:
 
     private:
         BKUTree* bku;
+        list<Entry*> garbageCollector;
 
     private:
         AVLTree(BKUTree* bku) {
@@ -553,6 +561,9 @@ public:
         }
 
         void remove(Node*& root, const K& key) {
+            if (!root)
+                throw "Not found";
+
             if (key == getKey(root)) {
                 if (!root->left && !root->right) {
                     delete root;
@@ -615,7 +626,10 @@ public:
         ~AVLTree() { this->clear(); };
 
         Node* add(K key, V value) {
-            return add(new Entry(key, value));
+            Entry* p = new Entry(key, value);
+            garbageCollector.push_back(p);
+
+            return add(p);
         }
         Node* add(Entry* entry) {
             return add(root, entry);
@@ -627,6 +641,9 @@ public:
         void clear() {
             clear(root);
             root = nullptr;
+            for (auto p: garbageCollector)
+                delete p;
+            garbageCollector.clear();
         }
 
         V search(K key) {
