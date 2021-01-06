@@ -1,6 +1,8 @@
-#include "BKUTree.hpp"
-const char* ansFile = "trung.txt";
-const char* outFile = "toan.txt";
+// include your BKUTree class here
+// #include "BKUTree.hpp"
+#include "BKUTree.cpp"
+const char* ansFile = "ans.txt";
+const char* outFile = "out.txt";
 
 #include <iostream>
 #include <sstream>
@@ -138,6 +140,7 @@ void random_test_bku() {
     int clear_rate = 100;
     for (int i = 0; i < n; ++i) {
         int key = rand() % n;
+        cerr << key << '\n';
 
         try {
             vector<int> tl;

@@ -1,0 +1,136 @@
+____________________________________________EXAMPLE TEST__________________________________________________________________________________________
+Splay: 4:4 2:2 1:1 3:3 9:9 5:5 7:7 
+AVL: 3:3 1:1 2:2 7:7 5:5 4:4 9:9 
+
+
+
+
+
+
+____________________________________________BKU ADD TEST__________________________________________________________________________________________
+Splay: 10:1st 
+AVL: 10:1st 
+Splay: 12:2nd 10:1st 
+AVL: 10:1st 12:2nd 
+Splay: 8:3rd 10:1st 12:2nd 
+AVL: 10:1st 8:3rd 12:2nd 
+Splay: 73:4th 8:3rd 12:2nd 10:1st 
+AVL: 10:1st 8:3rd 12:2nd 73:4th 
+Splay: 42:5th 12:2nd 8:3rd 10:1st 73:4th 
+AVL: 10:1st 8:3rd 42:5th 12:2nd 73:4th 
+Splay: 3:6th 42:5th 8:3rd 12:2nd 10:1st 73:4th 
+AVL: 10:1st 8:3rd 3:6th 42:5th 12:2nd 73:4th 
+Splay: 39:7th 3:6th 12:2nd 8:3rd 10:1st 42:5th 73:4th 
+AVL: 10:1st 8:3rd 3:6th 42:5th 12:2nd 39:7th 73:4th 
+Splay: 27:8th 12:2nd 3:6th 8:3rd 10:1st 39:7th 42:5th 73:4th 
+AVL: 10:1st 8:3rd 3:6th 42:5th 27:8th 12:2nd 39:7th 73:4th 
+Duplicate key
+Splay: 38:9th 27:8th 12:2nd 3:6th 8:3rd 10:1st 39:7th 42:5th 73:4th 
+AVL: 10:1st 8:3rd 3:6th 39:7th 27:8th 12:2nd 38:9th 42:5th 73:4th 
+Splay: 65:10th 39:7th 38:9th 27:8th 12:2nd 3:6th 8:3rd 10:1st 42:5th 73:4th 
+AVL: 10:1st 8:3rd 3:6th 39:7th 27:8th 12:2nd 38:9th 65:10th 42:5th 73:4th 
+Splay: 7:3rd 3:6th 65:10th 38:9th 12:2nd 8:3rd 10:1st 27:8th 39:7th 42:5th 73:4th 
+AVL: 10:1st 7:3rd 3:6th 8:3rd 39:7th 27:8th 12:2nd 38:9th 65:10th 42:5th 73:4th 
+Splay: 29:10th 7:3rd 3:6th 27:8th 12:2nd 8:3rd 10:1st 38:9th 65:10th 39:7th 42:5th 73:4th 
+AVL: 27:8th 10:1st 7:3rd 3:6th 8:3rd 12:2nd 39:7th 38:9th 29:10th 65:10th 42:5th 73:4th 
+Duplicate key
+Splay: 29:10th 7:3rd 3:6th 27:8th 12:2nd 8:3rd 10:1st 38:9th 65:10th 39:7th 42:5th 73:4th 
+AVL: 27:8th 10:1st 7:3rd 3:6th 8:3rd 12:2nd 39:7th 38:9th 29:10th 65:10th 42:5th 73:4th 
+
+
+
+
+
+
+____________________________________________AVL REMOVE TEST__________________________________________________________________________________________
+AVL: 10:1st 8:3rd 3:6th 42:5th 27:8th 12:2nd 39:7th 73:4th 
+AVL: 27:8th 10:1st 3:6th 12:2nd 42:5th 39:7th 73:4th 
+AVL: 27:8th 10:1st 3:6th 12:2nd 39:7th 73:4th 
+AVL: 12:2nd 10:1st 3:6th 39:7th 73:4th 
+Not found
+Not found
+
+
+
+
+
+
+____________________________________________RANDOM BKU TEST__________________________________________________________________________________________
+Splay: 495:gdj 
+AVL: 495:gdj 
+Splay: 318:gha 495:gdj 
+AVL: 495:gdj 318:gha 
+Splay: 587:gdi 495:gdj 318:gha 
+AVL: 495:gdj 318:gha 587:gdi 
+Splay: 182:dff 587:gdi 318:gha 495:gdj 
+AVL: 495:gdj 318:gha 182:dff 587:gdi 
+Splay: 818:jej 587:gdi 182:dff 318:gha 495:gdj 
+AVL: 495:gdj 318:gha 182:dff 587:gdi 818:jej 
+Splay: 835:geb 818:jej 587:gdi 182:dff 318:gha 495:gdj 
+AVL: 495:gdj 318:gha 182:dff 818:jej 587:gdi 835:geb 
+Splay: 679:ijb 587:gdi 182:dff 318:gha 495:gdj 835:geb 818:jej 
+AVL: 495:gdj 318:gha 182:dff 818:jej 587:gdi 679:ijb 835:geb 
+Splay: 366:hfg 182:dff 318:gha 679:ijb 587:gdi 495:gdj 835:geb 818:jej 
+AVL: 495:gdj 318:gha 182:dff 366:hfg 818:jej 587:gdi 679:ijb 835:geb 
+Splay: 885:dig 366:hfg 182:dff 318:gha 835:geb 679:ijb 587:gdi 495:gdj 818:jej 
+AVL: 495:gdj 318:gha 182:dff 366:hfg 818:jej 587:gdi 679:ijb 835:geb 885:dig 
+Splay: 95:ehi 885:dig 182:dff 366:hfg 318:gha 835:geb 679:ijb 587:gdi 495:gdj 818:jej 
+AVL: 495:gdj 318:gha 182:dff 95:ehi 366:hfg 818:jej 587:gdi 679:ijb 835:geb 885:dig 
+Splay: 872:dcf 95:ehi 182:dff 835:geb 366:hfg 318:gha 679:ijb 587:gdi 495:gdj 818:jej 885:dig 
+AVL: 495:gdj 318:gha 182:dff 95:ehi 366:hfg 818:jej 587:gdi 679:ijb 872:dcf 835:geb 885:dig 
+Splay: 956:ged 885:dig 872:dcf 95:ehi 182:dff 835:geb 366:hfg 318:gha 679:ijb 587:gdi 495:gdj 818:jej 
+AVL: 495:gdj 318:gha 182:dff 95:ehi 366:hfg 818:jej 587:gdi 679:ijb 872:dcf 835:geb 885:dig 956:ged 
+Splay: 595:fic 182:dff 95:ehi 366:hfg 318:gha 587:gdi 495:gdj 956:ged 872:dcf 835:geb 679:ijb 818:jej 885:dig 
+AVL: 495:gdj 318:gha 182:dff 95:ehi 366:hfg 818:jej 595:fic 587:gdi 679:ijb 872:dcf 835:geb 885:dig 956:ged 
+Splay: 14:hge 595:fic 95:ehi 182:dff 366:hfg 318:gha 587:gdi 495:gdj 956:ged 872:dcf 835:geb 679:ijb 818:jej 885:dig 
+AVL: 495:gdj 318:gha 95:ehi 14:hge 182:dff 366:hfg 818:jej 595:fic 587:gdi 679:ijb 872:dcf 835:geb 885:dig 956:ged 
+Splay: 9:fic 14:hge 595:fic 95:ehi 182:dff 366:hfg 318:gha 587:gdi 495:gdj 956:ged 872:dcf 835:geb 679:ijb 818:jej 885:dig 
+AVL: 495:gdj 95:ehi 14:hge 9:fic 318:gha 182:dff 366:hfg 818:jej 595:fic 587:gdi 679:ijb 872:dcf 835:geb 885:dig 956:ged 
+Splay: 707:hha 14:hge 9:fic 595:fic 95:ehi 182:dff 366:hfg 318:gha 587:gdi 495:gdj 679:ijb 956:ged 835:geb 818:jej 872:dcf 885:dig 
+AVL: 495:gdj 95:ehi 14:hge 9:fic 318:gha 182:dff 366:hfg 818:jej 595:fic 587:gdi 679:ijb 707:hha 872:dcf 835:geb 885:dig 956:ged 
+Splay: 823:iab 707:hha 14:hge 9:fic 595:fic 95:ehi 182:dff 366:hfg 318:gha 587:gdi 495:gdj 679:ijb 818:jej 956:ged 835:geb 872:dcf 885:dig 
+AVL: 495:gdj 95:ehi 14:hge 9:fic 318:gha 182:dff 366:hfg 818:jej 595:fic 587:gdi 679:ijb 707:hha 872:dcf 835:geb 823:iab 885:dig 956:ged 
+dig
+Traversed List: 823 495 818 872 
+Splay: 872:dcf 823:iab 707:hha 14:hge 9:fic 595:fic 95:ehi 182:dff 366:hfg 318:gha 587:gdi 495:gdj 679:ijb 818:jej 835:geb 956:ged 
+AVL: 495:gdj 95:ehi 14:hge 9:fic 318:gha 182:dff 366:hfg 818:jej 595:fic 587:gdi 679:ijb 707:hha 872:dcf 835:geb 823:iab 956:ged 
+Splay: 345:fac 14:hge 9:fic 182:dff 95:ehi 318:gha 872:dcf 707:hha 595:fic 366:hfg 587:gdi 495:gdj 679:ijb 823:iab 818:jej 835:geb 956:ged 
+AVL: 495:gdj 95:ehi 14:hge 9:fic 318:gha 182:dff 366:hfg 345:fac 818:jej 595:fic 587:gdi 679:ijb 707:hha 872:dcf 835:geb 823:iab 956:ged 
+Splay: 83:dbf 14:hge 9:fic 345:fac 95:ehi 182:dff 318:gha 872:dcf 707:hha 595:fic 366:hfg 587:gdi 495:gdj 679:ijb 823:iab 818:jej 835:geb 956:ged 
+AVL: 495:gdj 95:ehi 14:hge 9:fic 83:dbf 318:gha 182:dff 366:hfg 345:fac 818:jej 595:fic 587:gdi 679:ijb 707:hha 872:dcf 835:geb 823:iab 956:ged 
+Splay: 561:gd 345:fac 83:dbf 14:hge 9:fic 95:ehi 182:dff 318:gha 366:hfg 495:gdj 707:hha 595:fic 587:gdi 679:ijb 872:dcf 823:iab 818:jej 835:geb 956:ged 
+AVL: 495:gdj 95:ehi 14:hge 9:fic 83:dbf 318:gha 182:dff 366:hfg 345:fac 818:jej 595:fic 587:gdi 561:gd 679:ijb 707:hha 872:dcf 835:geb 823:iab 956:ged 
+Splay: 238:eej 95:ehi 83:dbf 14:hge 9:fic 182:dff 345:fac 318:gha 561:gd 366:hfg 495:gdj 707:hha 595:fic 587:gdi 679:ijb 872:dcf 823:iab 818:jej 835:geb 956:ged 
+AVL: 495:gdj 95:ehi 14:hge 9:fic 83:dbf 318:gha 182:dff 238:eej 366:hfg 345:fac 818:jej 595:fic 587:gdi 561:gd 679:ijb 707:hha 872:dcf 835:geb 823:iab 956:ged 
+Splay: 233:ifi 182:dff 95:ehi 83:dbf 14:hge 9:fic 238:eej 345:fac 318:gha 561:gd 366:hfg 495:gdj 707:hha 595:fic 587:gdi 679:ijb 872:dcf 823:iab 818:jej 835:geb 956:ged 
+AVL: 495:gdj 95:ehi 14:hge 9:fic 83:dbf 318:gha 233:ifi 182:dff 238:eej 366:hfg 345:fac 818:jej 595:fic 587:gdi 561:gd 679:ijb 707:hha 872:dcf 835:geb 823:iab 956:ged 
+Splay: 815:jaf 238:eej 233:ifi 182:dff 95:ehi 83:dbf 14:hge 9:fic 561:gd 345:fac 318:gha 366:hfg 495:gdj 707:hha 595:fic 587:gdi 679:ijb 872:dcf 818:jej 823:iab 835:geb 956:ged 
+AVL: 495:gdj 95:ehi 14:hge 9:fic 83:dbf 318:gha 233:ifi 182:dff 238:eej 366:hfg 345:fac 818:jej 595:fic 587:gdi 561:gd 707:hha 679:ijb 815:jaf 872:dcf 835:geb 823:iab 956:ged 
+Splay: 931:dah 815:jaf 238:eej 233:ifi 182:dff 95:ehi 83:dbf 14:hge 9:fic 561:gd 345:fac 318:gha 366:hfg 495:gdj 707:hha 595:fic 587:gdi 679:ijb 872:dcf 818:jej 823:iab 835:geb 956:ged 
+AVL: 495:gdj 95:ehi 14:hge 9:fic 83:dbf 318:gha 233:ifi 182:dff 238:eej 366:hfg 345:fac 818:jej 595:fic 587:gdi 561:gd 707:hha 679:ijb 815:jaf 872:dcf 835:geb 823:iab 956:ged 931:dah 
+Splay: 866:bb 815:jaf 238:eej 233:ifi 182:dff 95:ehi 83:dbf 14:hge 9:fic 561:gd 345:fac 318:gha 366:hfg 495:gdj 707:hha 595:fic 587:gdi 679:ijb 818:jej 835:geb 823:iab 931:dah 872:dcf 956:ged 
+AVL: 495:gdj 95:ehi 14:hge 9:fic 83:dbf 318:gha 233:ifi 182:dff 238:eej 366:hfg 345:fac 818:jej 595:fic 587:gdi 561:gd 707:hha 679:ijb 815:jaf 872:dcf 835:geb 823:iab 866:bb 956:ged 931:dah 
+Splay: 636:dfh 238:eej 233:ifi 182:dff 95:ehi 83:dbf 14:hge 9:fic 561:gd 345:fac 318:gha 366:hfg 495:gdj 595:fic 587:gdi 866:bb 815:jaf 707:hha 679:ijb 818:jej 835:geb 823:iab 931:dah 872:dcf 956:ged 
+AVL: 495:gdj 95:ehi 14:hge 9:fic 83:dbf 318:gha 233:ifi 182:dff 238:eej 366:hfg 345:fac 818:jej 595:fic 587:gdi 561:gd 707:hha 679:ijb 636:dfh 815:jaf 872:dcf 835:geb 823:iab 866:bb 956:ged 931:dah 
+Splay: 437:jeg 238:eej 233:ifi 182:dff 95:ehi 83:dbf 14:hge 9:fic 345:fac 318:gha 366:hfg 636:dfh 561:gd 495:gdj 595:fic 587:gdi 866:bb 815:jaf 707:hha 679:ijb 818:jej 835:geb 823:iab 931:dah 872:dcf 956:ged 
+AVL: 495:gdj 95:ehi 14:hge 9:fic 83:dbf 318:gha 233:ifi 182:dff 238:eej 366:hfg 345:fac 437:jeg 818:jej 595:fic 587:gdi 561:gd 707:hha 679:ijb 636:dfh 815:jaf 872:dcf 835:geb 823:iab 866:bb 956:ged 931:dah 
+ged
+Traversed List: 437 495 818 872 
+Splay: 636:dfh 437:jeg 238:eej 233:ifi 182:dff 95:ehi 83:dbf 14:hge 9:fic 345:fac 318:gha 366:hfg 561:gd 495:gdj 595:fic 587:gdi 931:dah 866:bb 815:jaf 707:hha 679:ijb 818:jej 835:geb 823:iab 872:dcf 
+AVL: 495:gdj 95:ehi 14:hge 9:fic 83:dbf 318:gha 233:ifi 182:dff 238:eej 366:hfg 345:fac 437:jeg 818:jej 595:fic 587:gdi 561:gd 707:hha 679:ijb 636:dfh 815:jaf 872:dcf 835:geb 823:iab 866:bb 931:dah 
+Splay: 624:dgb 437:jeg 238:eej 233:ifi 182:dff 95:ehi 83:dbf 14:hge 9:fic 345:fac 318:gha 366:hfg 595:fic 561:gd 495:gdj 587:gdi 636:dfh 931:dah 866:bb 815:jaf 707:hha 679:ijb 818:jej 835:geb 823:iab 872:dcf 
+AVL: 495:gdj 95:ehi 14:hge 9:fic 83:dbf 318:gha 233:ifi 182:dff 238:eej 366:hfg 345:fac 437:jeg 818:jej 595:fic 587:gdi 561:gd 707:hha 636:dfh 624:dgb 679:ijb 815:jaf 872:dcf 835:geb 823:iab 866:bb 931:dah 
+Splay: 292:fgf 238:eej 233:ifi 182:dff 95:ehi 83:dbf 14:hge 9:fic 624:dgb 437:jeg 318:gha 345:fac 366:hfg 595:fic 561:gd 495:gdj 587:gdi 636:dfh 931:dah 866:bb 815:jaf 707:hha 679:ijb 818:jej 835:geb 823:iab 872:dcf 
+AVL: 495:gdj 233:ifi 95:ehi 14:hge 9:fic 83:dbf 182:dff 318:gha 238:eej 292:fgf 366:hfg 345:fac 437:jeg 818:jej 595:fic 587:gdi 561:gd 707:hha 636:dfh 624:dgb 679:ijb 815:jaf 872:dcf 835:geb 823:iab 866:bb 931:dah 
+Splay: 355:cja 292:fgf 238:eej 233:ifi 182:dff 95:ehi 83:dbf 14:hge 9:fic 318:gha 345:fac 624:dgb 437:jeg 366:hfg 595:fic 561:gd 495:gdj 587:gdi 636:dfh 931:dah 866:bb 815:jaf 707:hha 679:ijb 818:jej 835:geb 823:iab 872:dcf 
+AVL: 495:gdj 233:ifi 95:ehi 14:hge 9:fic 83:dbf 182:dff 318:gha 238:eej 292:fgf 366:hfg 345:fac 355:cja 437:jeg 818:jej 595:fic 587:gdi 561:gd 707:hha 636:dfh 624:dgb 679:ijb 815:jaf 872:dcf 835:geb 823:iab 866:bb 931:dah 
+Splay: 156:dcd 95:ehi 83:dbf 14:hge 9:fic 292:fgf 233:ifi 182:dff 238:eej 355:cja 318:gha 345:fac 624:dgb 437:jeg 366:hfg 595:fic 561:gd 495:gdj 587:gdi 636:dfh 931:dah 866:bb 815:jaf 707:hha 679:ijb 818:jej 835:geb 823:iab 872:dcf 
+AVL: 495:gdj 233:ifi 95:ehi 14:hge 9:fic 83:dbf 182:dff 156:dcd 318:gha 238:eej 292:fgf 366:hfg 345:fac 355:cja 437:jeg 818:jej 595:fic 587:gdi 561:gd 707:hha 636:dfh 624:dgb 679:ijb 815:jaf 872:dcf 835:geb 823:iab 866:bb 931:dah 
+hfg
+Traversed List: 156 495 233 318 
+Splay: 355:cja 156:dcd 95:ehi 83:dbf 14:hge 9:fic 292:fgf 233:ifi 182:dff 238:eej 318:gha 345:fac 437:jeg 624:dgb 595:fic 561:gd 495:gdj 587:gdi 636:dfh 931:dah 866:bb 815:jaf 707:hha 679:ijb 818:jej 835:geb 823:iab 872:dcf 
+AVL: 495:gdj 233:ifi 95:ehi 14:hge 9:fic 83:dbf 182:dff 156:dcd 318:gha 238:eej 292:fgf 355:cja 345:fac 437:jeg 818:jej 595:fic 587:gdi 561:gd 707:hha 636:dfh 624:dgb 679:ijb 815:jaf 872:dcf 835:geb 823:iab 866:bb 931:dah 
+Splay: 632:chb 437:jeg 355:cja 156:dcd 95:ehi 83:dbf 14:hge 9:fic 292:fgf 233:ifi 182:dff 238:eej 318:gha 345:fac 624:dgb 595:fic 561:gd 495:gdj 587:gdi 636:dfh 931:dah 866:bb 815:jaf 707:hha 679:ijb 818:jej 835:geb 823:iab 872:dcf 
+AVL: 495:gdj 233:ifi 95:ehi 14:hge 9:fic 83:dbf 182:dff 156:dcd 318:gha 238:eej 292:fgf 355:cja 345:fac 437:jeg 818:jej 595:fic 587:gdi 561:gd 636:dfh 624:dgb 632:chb 707:hha 679:ijb 815:jaf 872:dcf 835:geb 823:iab 866:bb 931:dah 
+Splay: 563:jdb 437:jeg 355:cja 156:dcd 95:ehi 83:dbf 14:hge 9:fic 292:fgf 233:ifi 182:dff 238:eej 318:gha 345:fac 561:gd 495:gdj 632:chb 595:fic 587:gdi 624:dgb 636:dfh 931:dah 866:bb 815:jaf 707:hha 679:ijb 818:jej 835:geb 823:iab 872:dcf 
+AVL: 495:gdj 233:ifi 95:ehi 14:hge 9:fic 83:dbf 182:dff 156:dcd 318:gha 238:eej 292:fgf 355:cja 345:fac 437:jeg 818:jej 595:fic 563:jdb 561:gd 587:gdi 636:dfh 624:dgb 632:chb 707:hha 679:ijb 815:jaf 872:dcf 835:geb 823:iab 866:bb 931:dah 

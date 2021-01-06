@@ -139,7 +139,6 @@ public:
                 res = getValue(p);
                 splay->splay(p->corr);
             }
-
         }
 
         if (!found)
