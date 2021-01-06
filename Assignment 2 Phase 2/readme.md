@@ -9,25 +9,25 @@ The set is empty at the beginning.
   
 Example:  
 The set at the beginning:  
-![alt text](./seg1.png)
+![alt text](./seg1.png)  
 The number of maximun segments cover the same point: 0
 
 **add(1, 5)**.  
 **add(2, 10)**. The set now is  
-![alt text](./seg2.png)
+![alt text](./seg2.png)  
 The number of maximun segments cover the same point: 2
 
 **add(6, 15)**. The set now is  
-![alt text](./seg3.png)
+![alt text](./seg3.png)  
 The number of maximun segments cover the same point: 2
 
 **remove(2, 10)**. The set now is  
-![alt text](./seg4.png)
+![alt text](./seg4.png)  
 The number of maximun segments cover the same point: 1
 
 **remove(6, 15)**.  
 **remove(1, 5)**. The set now is  
-![alt text](./seg1.png)
+![alt text](./seg1.png)  
 The number of maximun segments cover the same point: 0
 
 
@@ -43,7 +43,7 @@ Example:
 **add(1, 5)**  
 **add(2, 10)**  
 **add(6, 15)**  
-![alt text](./seg5.png)
+![alt text](./seg5.png)  
 The number of maximun sum of a consecutive subsequence is 2 (two first elements).
 
 We implement the ordered set of points by implementing the AVL tree. Each node of the tree stores these additional following informations
