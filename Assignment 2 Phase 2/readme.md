@@ -53,7 +53,7 @@ We implement the ordered set of points by implementing the AVL tree. Each node o
 - ```res``` the maximun sum of all consecutive subsequence in the subtree.
 
 Everytime change the structure of the subtree (adding element, reomoving element, rotating the subtree), we update those above informations by these formulas
-- If the root has no right subtree or left subtree (the root is the leaf):
+- If the root has no right subtree and left subtree (the root is the leaf):
     - ```root->sum = root->value```
     - ```root->lmax = root->rmax = root->res = max(0, root->sum)```  
 - If the root has only the left subtree:
@@ -68,8 +68,8 @@ Everytime change the structure of the subtree (adding element, reomoving element
     - ```root->res = max(right->res, root->lmax)```  
 - If the root has both left subtree and right subtree:
     - ```root->sum = root->value + left->sum + right->sum```
-    - ```root->lmax = max(left->lmax, left->s + root->value + right->lmax)```
-    - ```root->rmax = max(right->rmax, right->s + root->value + left->rmax)```
+    - ```root->lmax = max(left->lmax, left->sum + root->value + right->lmax)```
+    - ```root->rmax = max(right->rmax, right->sum + root->value + left->rmax)```
     - ```root->res = max(max(left->res, right->res), left->rmax + right->lmax + root->value)```  
 
 Maximun sum of all consecutive subsequence in the ordered set is just ```root->res``` with ```root``` is the root of the AVL tree. With this approach, we can fulfill all the time complexity constraints.
