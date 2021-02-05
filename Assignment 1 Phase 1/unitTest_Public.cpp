@@ -15,9 +15,28 @@
 
 #include <cstring>
 #include <assert.h>
-/* ----------- Uncomment the following line ----------- */
+using namespace std;
 
-#include "FragmentLinkedList.cpp"
+
+template <class T>
+class IList
+{
+public:
+    virtual void add(const T& element) = 0;
+    virtual void add(int index, const T& element) = 0;
+    virtual T removeAt(int index) = 0;
+    virtual bool removeItem(const T& item) = 0;
+    virtual bool empty() = 0;
+    virtual int size() = 0;
+    virtual void clear() = 0;
+    virtual T get(int index) = 0;
+    virtual void set(int index, const T& element) = 0;
+    virtual int indexOf(const T& item) = 0;
+    virtual bool contains(const T& item) = 0;
+    virtual string toString() = 0;
+};
+
+#include "1910617.h"
 
 using namespace std;
 
@@ -47,7 +66,7 @@ string fragmentHead(FragmentLinkedList<T> *pList, int fragmentMaxSize){
 #define expectedTest_13 "[1, 5, 7, 11, 13, 17, 19, 21, 22]"
 #define expectedTest_14 45
 
-int main()
+void unittest()
 {
     std::out_of_range exOutBound("Dump");
     FragmentLinkedList<int> fList(4);
@@ -116,5 +135,66 @@ int main()
     int total = 0;
     while(!fList.empty()) total += fList.removeAt(0);
     assert(expectedTest_14 == total);
-    cout << "Completed! Weldone!";
+}
+
+void node_template_test() {
+    FragmentLinkedList<string>::Node default_constructor_node();
+    FragmentLinkedList<string>::Node n;
+    FragmentLinkedList<string>::Node next_prev_constructor_node(&n, &n);
+    FragmentLinkedList<string>::Node data_next_prev_constructor_node("data", &n, &n);
+}
+
+void iterator_template_test() {
+    FragmentLinkedList<string> a;
+    for (int i = 0; i < 10; ++i) {
+        a.add(to_string(rand()));
+    }
+
+    FragmentLinkedList<string>::Iterator it(&a);
+    FragmentLinkedList<string>::Iterator it2(&a, false);
+    it2 = it;
+    *it;
+    it != it2;
+    it.set("ad");
+    it.remove();
+    ++it;
+    it++;
+}
+
+void list_template_test() {
+    FragmentLinkedList<string> *a = new FragmentLinkedList<string>(7);
+    for (int i = 0; i < 100; ++i) {
+        a->add(to_string(rand()));
+    }
+    a->add(0, "sdfs");
+
+    a->empty();
+    a->size();
+    a->indexOf("asd");
+    a->get(0);
+    a->set(0, "asd");
+    a->contains("asd");
+
+    a->removeAt(0);
+    a->removeItem("asd");
+
+    a->toString();
+    a->clear();
+    a->begin();
+    a->begin(1);
+    a->end();
+    a->end(2);
+    delete a;
+}
+
+void template_test() {
+    node_template_test();
+    iterator_template_test();
+    list_template_test();
+}
+
+int main() {
+    unittest();
+    template_test();
+    cout << "OK Peko!\n";
 }

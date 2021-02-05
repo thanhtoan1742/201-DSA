@@ -1,13 +1,29 @@
-run: run_sub1 run_sub2
+run_out: run_minPark_out run_busParkin_out
 
-run_sub1: build_sub1
-	./sub1
+run_ans: run_minPark_ans run_busParkin_ans
 
-run_sub2: build_sub2
-	./sub2
+run: run_minPark run_busParking
 
-build_sub1: sub1.cpp
-	g++ -std=c++11 -Wall sub1.cpp -o sub1
+run_minPark_ans: build_minPark
+	./minPark.exe > minPark.ans
 
-build_sub2: sub2.cpp
-	g++ -std=c++11 -Wall sub2.cpp -o sub2
+run_busParkin_ans: build_busParking
+	./busParking.exe > busParking.ans
+
+run_minPark_out: build_minPark
+	./minPark.exe > minPark.out
+
+run_busParkin_out: build_busParking
+	./busParking.exe > busParking.out
+
+run_minPark: build_minPark
+	./minPark.exe
+
+run_busParking: build_busParking
+	./busParking.exe
+
+build_minPark: minPark.cpp
+	g++ -std=c++11 -Wall minPark.cpp -o minPark.exe
+
+build_busParking: busParking.cpp
+	g++ -std=c++11 -Wall busParking.cpp -o busParking.exe

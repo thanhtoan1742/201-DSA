@@ -1,3 +1,5 @@
+# Note
+Ignore all the source file please.
 # Problem
 The problem of the second task of A2P2 is equivalent to this problem:  
 Maintain a set of segments. Each segment is presented as a pair of number **[s, t)**. You have to process 3 kinds of query

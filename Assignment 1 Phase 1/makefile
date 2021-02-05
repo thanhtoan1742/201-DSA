@@ -1,5 +1,5 @@
-run: main
-	./main
+run: unittest.exe
+	./unittest.exe
 
-main: FragmentLinkedList.cpp unitTest_Public.cpp
-	g++ -std=gnu++11 -Wall unitTest_Public.cpp -o main
+unittest.exe: unitTest_Public.cpp 1910617.h
+	g++ -std=gnu++11 -Wall unitTest_Public.cpp -o unittest.exe
